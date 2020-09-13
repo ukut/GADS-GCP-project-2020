@@ -1,0 +1,27 @@
+Project: getting started with GKE
+
+1. -Confirm that needed APIs are enabled:
+	gcloud services enable Kubernetes Engine API Container Registry API --async
+2. -Start a Kubernetes Engine cluster:
+	(a)first place the assign zone in enviroment variable
+	   	export MY_ZONE=us-central1-a
+	(b)Start a Kubernetes cluster managed by Kubernetes Engine. Name the cluster webfrontend and configure it to run 2 nodes:
+		gcloud container clusters create webfrontend --zone $MY_ZONE --num-nodes 2
+	(c)After the cluster is created, check your installed version of Kubernetes using the kubectl version command:
+		kubectl version
+	(d) View your running nodes in the GCP Console
+		gcloud compute instances list
+3  -Run and deploy a container
+	(a)launch a single instance of the nginx container.
+		kubectl create deploy nginx --image=nginx:1.17.10
+	(b)View the pod running the nginx container:
+		kubectl get pods
+	(c)View the new service:
+		kubectl get services
+	(d)Scale up the number of pods running on your service:
+		kubectl scale deployment nginx --replicas 3
+	(e)Confirm that Kubernetes has updated the number of pods:
+		kubectl get pods
+	(f)Confirm that your external IP address has not changed:
+		kubectl get services
+	
